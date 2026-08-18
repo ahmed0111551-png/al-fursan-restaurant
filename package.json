@@ -1,0 +1,10 @@
+{
+  "name": "al-fursan-restaurant",
+  "version": "1.0.0",
+  "description": "Al Fursan Restaurant — full-stack ordering website (Node.js, zero external dependencies)",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "license": "MIT"
+}
