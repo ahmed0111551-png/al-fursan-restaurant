@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم مطعم الفرسان</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+<script>
+  // Check authentication before loading admin page
+  (function() {
+    const token = localStorage.getItem("admin_token");
+    if (!token) {
+      window.location.href = "/login.html";
+    }
+  })();
+</script>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand">🛡️ لوحة الفرسان</div>
+    <a class="admin-nav-link active" href="#dashboard" data-tab="dashboard">📊 نظرة عامة</a>
+    <a class="admin-nav-link" href="#orders" data-tab="orders">🧾 الطلبات</a>
+    <a class="admin-nav-link" href="#products" data-tab="products">🍔 المنتجات</a>
+    <a class="admin-back" href="/">← عرض الموقع</a>
+    <button id="logout-btn" class="admin-back" style="width: 100%; margin-top: auto; background: #A61C1C; color: white; border: none; cursor: pointer; padding: 8px 12px; border-radius: 4px;">🚪 تسجيل الخروج</button>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- ===== DASHBOARD TAB ===== -->
+    <section id="tab-dashboard" class="admin-tab">
+      <div class="admin-topbar"><h1>نظرة عامة</h1></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="label">طلبات اليوم</div><div class="value" id="stat-orders">—</div></div>
+        <div class="stat-card"><div class="label">مبيعات اليوم</div><div class="value" id="stat-sales">—</div></div>
+        <div class="stat-card"><div class="label">طلبات قيد الانتظار</div><div class="value" id="stat-pending">—</div></div>
+        <div class="stat-card"><div class="label">عدد المنتجات</div><div class="value" id="stat-products">—</div></div>
+      </div>
+
+      <div class="admin-panel">
+        <div class="admin-panel-head"><h2>سجل المبيعات بالأيام</h2></div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>التاريخ</th><th>عدد الطلبات</th><th>إجمالي المبيعات</th></tr></thead>
+            <tbody id="sales-history-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="admin-panel">
+        <div class="admin-panel-head"><h2>أحدث الطلبات</h2></div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>رقم الطلب</th><th>العميل</th><th>الإجمالي</th><th>الحالة</th></tr></thead>
+            <tbody id="recent-orders-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ORDERS TAB ===== -->
+    <section id="tab-orders" class="admin-tab" style="display:none">
+      <div class="admin-topbar"><h1>الطلبات</h1></div>
+      <div class="admin-panel">
+        <div class="admin-panel-head">
+          <div class="filter-row" id="order-filters">
+            <button class="filter-chip active" data-status="">الكل</button>
+            <button class="filter-chip" data-status="Pending">قيد الانتظار</button>
+            <button class="filter-chip" data-status="Confirmed">مؤكد</button>
+            <button class="filter-chip" data-status="Preparing">قيد التحضير</button>
+            <button class="filter-chip" data-status="Ready">جاهز</button>
+            <button class="filter-chip" data-status="Out for Delivery">في الطريق</button>
+            <button class="filter-chip" data-status="Delivered">تم التسليم</button>
+            <button class="filter-chip" data-status="Cancelled">ملغي</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>رقم الطلب</th><th>العميل</th><th>الهاتف</th><th>الأصناف</th><th>الإجمالي</th><th>الحالة</th></tr></thead>
+            <tbody id="orders-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRODUCTS TAB ===== -->
+    <section id="tab-products" class="admin-tab" style="display:none">
+      <div class="admin-topbar">
+        <h1>المنتجات</h1>
+        <button class="btn btn-primary btn-sm" id="add-product-btn">+ إضافة منتج</button>
+      </div>
+      <div class="admin-panel">
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th></th><th>الاسم</th><th>التصنيف</th><th>السعر</th><th>متاح</th><th></th></tr></thead>
+            <tbody id="products-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Product form modal -->
+<div class="pd-overlay-modal" id="product-modal">
+  <div class="pd-overlay-card">
+    <h3 id="product-modal-title" style="margin-bottom:14px">إضافة منتج</h3>
+    <form id="product-form">
+      <input type="hidden" id="pf-id">
+      <div class="admin-form-grid">
+        <div class="form-field full">
+          <label>اسم المنتج</label>
+          <input type="text" id="pf-name" required>
+        </div>
+        <div class="form-field full">
+          <label>الوصف</label>
+          <textarea id="pf-description" rows="2"></textarea>
+        </div>
+        <div class="form-field">
+          <label>السعر (ج.م)</label>
+          <input type="number" id="pf-price" min="0" required>
+        </div>
+        <div class="form-field">
+          <label>التصنيف</label>
+          <input type="text" id="pf-category" list="category-list" required>
+          <datalist id="category-list"></datalist>
+        </div>
+        <div class="form-field full">
+          <label>رابط الصورة</label>
+          <input type="text" id="pf-image" placeholder="https://...">
+        </div>
+        <div class="form-field">
+          <label><input type="checkbox" id="pf-available" checked> متاح</label>
+        </div>
+        <div class="form-field">
+          <label><input type="checkbox" id="pf-featured"> ضمن الأكثر طلبًا</label>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button type="submit" class="btn btn-primary btn-block">حفظ</button>
+        <button type="button" class="btn btn-ghost" id="product-modal-cancel">إلغاء</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>
