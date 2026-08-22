@@ -292,7 +292,7 @@
       .map((it) => `${ltrIsolate(it.quantity + " ×")} ${it.name}${it.variant ? ` (${it.variant})` : ""}`)
       .join("\n");
     const msg = [
-      "طلب جديد من موقع مطعم الفرسان",
+      "طلب جديد من موقع مطعمك عندنا",
       "",
       `الاسم: ${order.customerName}`,
       `الهاتف: ${ltrIsolate(order.phone)}`,
