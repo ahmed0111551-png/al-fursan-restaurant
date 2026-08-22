@@ -11,8 +11,8 @@ node backend/server.js
 
 ثم افتح:
 
-- الموقع: **http://localhost:3000**
-- لوحة التحكم: **http://localhost:3000/admin.html**
+- الموقع: **http://localhost:8080**
+- لوحة التحكم: **http://localhost:8080/admin.html**
 
 يمكن تغيير المنفذ بمتغير البيئة `PORT`:
 
