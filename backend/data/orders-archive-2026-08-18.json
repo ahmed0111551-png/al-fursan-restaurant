@@ -1,0 +1,34 @@
+[
+  {
+    "id": "omsw0fivp925",
+    "customerName": "Ahmed Mostafa",
+    "phone": "01040544207",
+    "address": "الشرقيه ـ مركز الحسينيه",
+    "fulfillment": "delivery",
+    "items": [
+      {
+        "name": "وجبة شاورما فراخ",
+        "price": 90,
+        "quantity": 4,
+        "variant": null
+      },
+      {
+        "name": "بطاطس فرسان",
+        "price": 45,
+        "quantity": 1,
+        "variant": null
+      },
+      {
+        "name": "بيبسي / سفن أب",
+        "price": 15,
+        "quantity": 1,
+        "variant": null
+      }
+    ],
+    "subtotal": 420,
+    "deliveryFee": 20,
+    "total": 440,
+    "status": "Delivered",
+    "createdAt": "2026-08-16T16:19:17.463Z"
+  }
+]

@@ -1,6 +1,6 @@
-# مطعم الفرسان — Al Fursan Restaurant
+# مطعمك عندنا — Matamak Andana Restaurant
 
-موقع مطعم كامل (Frontend + Backend + Admin Dashboard) لمطعم الفرسان في الحسينية، الشرقية.
+موقع مطعم كامل (Frontend + Backend + Admin Dashboard) لمطعمك عندنا في الحسينية، الشرقية.
 لا يحتاج أي تثبيت لمكتبات خارجية — يعمل بـ Node.js فقط (بدون Express).
 
 ## التشغيل

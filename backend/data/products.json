@@ -1,0 +1,101 @@
+[
+  {
+    "id": "p001",
+    "name": "كريسبي تشيكن",
+    "description": "دجاج مقرمش طازج + بطاطس + صوص خاص",
+    "price": 85,
+    "image": "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=800&auto=format&fit=crop",
+    "category": "فراخ",
+    "available": true,
+    "featured": true,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p002",
+    "name": "برجر فرسان مزدوج",
+    "description": "قطعتين لحم + جبنة شيدر + صوص الفرسان الخاص",
+    "price": 110,
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",
+    "category": "برجر",
+    "available": true,
+    "featured": true,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p003",
+    "name": "سندوتش كفتة مشوية",
+    "description": "كفتة لحم مشوية على الفحم + طحينة + خضار",
+    "price": 70,
+    "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=800&auto=format&fit=crop",
+    "category": "سندوتشات",
+    "available": true,
+    "featured": true,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p004",
+    "name": "بيتزا فراخ باربكيو",
+    "description": "عجينة طازجة + فراخ + صوص باربكيو + جبنة موتزاريلا",
+    "price": 130,
+    "image": "https://images.unsplash.com/photo-1594007654729-407eedc4be65?q=80&w=800&auto=format&fit=crop",
+    "category": "بيتزا",
+    "available": true,
+    "featured": true,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p005",
+    "name": "بطاطس فرسان",
+    "description": "بطاطس مقرمشة مع جبنة وصوص شيدر",
+    "price": 45,
+    "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=800&auto=format&fit=crop",
+    "category": "بطاطس",
+    "available": true,
+    "featured": true,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p006",
+    "name": "عصير مانجو طازج",
+    "description": "عصير مانجو طبيعي 100%",
+    "price": 30,
+    "image": "https://images.unsplash.com/photo-1546173159-315724a31696?q=80&w=800&auto=format&fit=crop",
+    "category": "مشروبات",
+    "available": true,
+    "featured": true,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p007",
+    "name": "وجبة شاورما فراخ",
+    "description": "شاورما فراخ متبلة + ثوم + بطاطس",
+    "price": 90,
+    "image": "https://images.unsplash.com/photo-1633321702518-7feccafb94d5?q=80&w=800&auto=format&fit=crop",
+    "category": "وجبات",
+    "available": true,
+    "featured": false,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p008",
+    "name": "كول سلو",
+    "description": "سلطة كرنب طازجة بالمايونيز",
+    "price": 20,
+    "image": "https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?q=80&w=800&auto=format&fit=crop",
+    "category": "سندوتشات",
+    "available": true,
+    "featured": false,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "p009",
+    "name": "بيبسي / سفن أب",
+    "description": "مشروب غازي بارد 250 مل",
+    "price": 15,
+    "image": "https://images.unsplash.com/photo-1554866585-cd94860890b7?q=80&w=800&auto=format&fit=crop",
+    "category": "مشروبات",
+    "available": true,
+    "featured": false,
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  }
+]
