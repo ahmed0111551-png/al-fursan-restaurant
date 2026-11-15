@@ -3,7 +3,7 @@ Allow: /
 Disallow: /api/
 Disallow: /admin.html
 
-Sitemap: https://alfursan-restaurant.com/sitemap.xml
+Sitemap: https://al-fursan-restaurant.vercel.app/sitemap.xml
 
 # Allow search engines to crawl
 User-agent: Googlebot

@@ -9,14 +9,14 @@
 
 :root {
   /* color */
-  --ink: #201512;
-  --ink-soft: #4a3830;
+  --ink: #0b0906;
+  --ink-soft: #3d342b;
   --paper: #FAF6EF;
   --paper-alt: #F1E6D3;
   --crimson: #A61C1C;
   --crimson-deep: #7A1212;
-  --gold: #C99A2E;
-  --gold-bright: #E3B93F;
+  --gold: #D9A42B;
+  --gold-bright: #F3C456;
   --white: #FFFFFF;
   --line: rgba(32, 21, 18, 0.12);
 
@@ -650,3 +650,11 @@ bdi { unicode-bidi: isolate; }
   border-radius: var(--radius);
 }
 @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
+.brand-logo{width:48px;height:48px;border-radius:50%;object-fit:cover;display:block;background:#000;box-shadow:0 0 0 2px var(--gold),0 4px 12px rgba(0,0,0,.25)}
+.footer-logo{width:130px;height:130px;border-radius:50%;box-shadow:0 0 0 2px var(--gold)}
+.wa-float{position:fixed;inset-inline-start:16px;bottom:84px;width:54px;height:54px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;font-size:26px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:60;transition:transform .2s}
+.wa-float:hover{transform:scale(1.08)}
+.btn-wa{background:#25D366;color:#fff;border:none}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}

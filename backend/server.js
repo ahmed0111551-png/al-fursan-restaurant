@@ -11,8 +11,9 @@ const db = require("./db");
 
 const PORT = process.env.PORT || 8080;
 const PUBLIC_DIR = path.join(__dirname, "..", "public");
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "Ahmed";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "ahmed010";
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
+if (!ADMIN_USERNAME || !ADMIN_PASSWORD) console.warn("⚠️  ADMIN_USERNAME / ADMIN_PASSWORD غير مضبوطين: تسجيل دخول الأدمن معطّل.");
 const DELIVERY_FEE = 20;
 
 // Simple token storage (in-memory for demo)
@@ -87,7 +88,7 @@ async function handleApi(req, res, pathname, query) {
     // ----- AUTHENTICATION -----
     if (resource === "auth" && req.method === "POST") {
       const body = await readBody(req);
-      if (body.username === ADMIN_USERNAME && body.password === ADMIN_PASSWORD) {
+      if (ADMIN_USERNAME && ADMIN_PASSWORD && body.username === ADMIN_USERNAME && body.password === ADMIN_PASSWORD) {
         const token = `token_${Date.now()}_${Math.random().toString(36).substring(7)}`;
         validTokens.add(token);
         // Token expires after 24 hours
@@ -197,15 +198,30 @@ async function handleApi(req, res, pathname, query) {
         if (!body.customerName || !body.phone || !Array.isArray(body.items) || body.items.length === 0) {
           return sendJSON(res, 400, { error: "بيانات الطلب غير مكتملة" });
         }
-        const subtotal = body.items.reduce((sum, it) => sum + it.price * it.quantity, 0);
+        const catalog = db.readAll("products");
+        const items = [];
+        for (const it of body.items) {
+          const prod = catalog.find((p) => p.id === it.productId);
+          const qty = Number(it.quantity);
+          if (!prod || prod.available === false || !Number.isInteger(qty) || qty < 1 || qty > 50) {
+            return sendJSON(res, 400, { error: "عنصر غير صالح في الطلب" });
+          }
+          const price = Number(it.price);
+          // الخيارات الحالية: حجم (-10..+15) + حتى 3 إضافات (+10 لكل واحدة)
+          if (!Number.isFinite(price) || price < prod.price - 10 || price > prod.price + 45) {
+            return sendJSON(res, 400, { error: "سعر غير صالح" });
+          }
+          items.push({ productId: prod.id, name: prod.name, price, quantity: qty, variant: it.variant || null });
+        }
+        const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
         const deliveryFee = body.fulfillment === "delivery" ? DELIVERY_FEE : 0;
         const order = {
           id: db.nextId("o"),
-          customerName: body.customerName,
-          phone: body.phone,
+          customerName: String(body.customerName).slice(0, 80),
+          phone: String(body.phone).slice(0, 20),
           address: body.address || "",
           fulfillment: body.fulfillment || "delivery",
-          items: body.items,
+          items,
           subtotal,
           deliveryFee,
           total: subtotal + deliveryFee,

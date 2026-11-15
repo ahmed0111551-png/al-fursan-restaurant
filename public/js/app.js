@@ -1,7 +1,7 @@
 // app.js — Al Fursan Restaurant storefront
 (() => {
   const API = "/api";
-  const WHATSAPP_NUMBER = "201212315585"; // 01212315585 in international format
+  const WHATSAPP_NUMBER = "201040544207"; // 01040544207 in international format
   const DELIVERY_FEE = 20;
 
   const state = {
@@ -189,6 +189,7 @@
         id: product.id,
         name: product.name,
         image: product.image,
+        productId: product.id,
         price: product.price + extraPrice,
         quantity,
         variant,
@@ -292,7 +293,7 @@
       .map((it) => `${ltrIsolate(it.quantity + " ×")} ${it.name}${it.variant ? ` (${it.variant})` : ""}`)
       .join("\n");
     const msg = [
-      "طلب جديد من موقع مطعمك عندنا",
+      "طلب جديد من موقع مطعم الفرسان",
       "",
       `الاسم: ${order.customerName}`,
       `الهاتف: ${ltrIsolate(order.phone)}`,
@@ -315,6 +316,7 @@
       address: fulfillment === "delivery" ? form.address.value.trim() : "",
       fulfillment,
       items: state.cart.map((l) => ({
+        productId: l.productId,
         name: l.name,
         price: l.price,
         quantity: l.quantity,
